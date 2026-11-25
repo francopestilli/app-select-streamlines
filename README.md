@@ -1,5 +1,46 @@
 # Streamline Selection by Parcellation 
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+> **An automated and reproducible pipeline to extract streamlines from a tractogram based on a labeled parcellation image.**
+
+Splits the parcellation into one binary mask per label (nibabel) and runs MRtrix3 tckedit -include for each mask in parallel, writing one tractogram per parcel; with ends_only only streamlines that terminate in the parcel are kept. Use it to get region-wise bundles from a whole-brain tractogram. The tractogram and parcellation must be in the same space.
+
+| | |
+|---|---|
+| 📥 **Inputs** | `neuro/track/tck` · `neuro/parcellation/volume` |
+| 📤 **Outputs** | `neuro/tcks` |
+| 🐳 **Container** | `brainlife/dipy:1.4.1` |
+| ⚙️ **Resources** | 1 CPUs · 8 GB memory · 2 h walltime |
+| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.866](https://doi.org/10.25663/brainlife.app.866) |
+
+#### 📥 Inputs
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `tractogram` | `neuro/track/tck` | yes | Whole-brain .tck tractogram. Same space as the parcellation. |
+| `parcellation` | `neuro/parcellation/volume` | yes | Labeled volumetric parcellation; each non-zero label becomes one ROI. |
+
+#### 📤 Outputs
+
+| Output | Datatype | Description |
+|---|---|---|
+| `tcks` | `neuro/tcks` | One .tck tractogram per parcellation label with the streamlines that intersect (or end in) that parcel. |
+
+<details>
+<summary><b>⚙️ Parameters</b> (1)</summary>
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `ends_only` | boolean | `false` | filtering only the streamlines ending in the parcels |
+
+</details>
+
+📚 **References used by this App:**
+- Tournier JD, Smith R, Raffelt D, et al. MRtrix3: A fast, flexible and open software framework for medical image processing and visualisation. NeuroImage 202, 116137 (2019). [doi:10.1016/j.neuroimage.2019.116137](https://doi.org/10.1016/j.neuroimage.2019.116137)
+
+<!-- brainlife-app:end -->
+
 An automated and reproducible pipeline to extract streamlines from a tractogram based on a labeled parcellation image. The tool supports efficient region-wise filtering using MRtrix and allows for parallel execution, making it suitable for structural connectivity analyses and parcel-based streamline extraction workflows.
 
 ## Author  
